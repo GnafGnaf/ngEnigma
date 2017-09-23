@@ -5,13 +5,17 @@ import {MaterialModule} from '@angular/material';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {AppComponent} from './app.component';
 import 'hammerjs';
-import { CypherComponent } from './cypher/cypher.component';
 import {FormsModule} from "@angular/forms";
+import { EnigmaComponent } from './enigma/enigma.component';
+import { RotorsComponent } from './rotors/rotors.component';
+import { RotorComponent } from './rotor/rotor.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CypherComponent
+    EnigmaComponent,
+    RotorsComponent,
+    RotorComponent
   ],
   imports: [
     BrowserModule,

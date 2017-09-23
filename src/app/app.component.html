@@ -1,8 +1,9 @@
 <md-toolbar color="primary"> <span>Enigma</span> </md-toolbar>
 
 <md-input-container floatPlaceholder="auto">
-  <textarea mdInput [ngModel]="plainText"
-              placeholder="plain text"></textarea>
+  <textarea mdInput
+      [(ngModel)]="plainText"
+      placeholder="plain text"></textarea>
 </md-input-container>
 
 <md-card>
@@ -10,4 +11,4 @@
   <md-card-content> {{ cypherText }}</md-card-content>
 </md-card>
 
-<app-cypher [plainText]="plainText"></app-cypher>
+<app-enigma [plaintext]="plainText" (onEncryption)="cypherText = $event"></app-enigma>
