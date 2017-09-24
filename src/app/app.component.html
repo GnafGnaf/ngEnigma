@@ -8,7 +8,7 @@
 
 <md-card>
   <md-card-title>Encrypted Message</md-card-title>
-  <md-card-content> {{ cypherText }}</md-card-content>
+  <md-card-content> {{ cypherText }} </md-card-content>
 </md-card>
 
 <app-enigma [plaintext]="plainText" (onEncryption)="cypherText = $event"></app-enigma>

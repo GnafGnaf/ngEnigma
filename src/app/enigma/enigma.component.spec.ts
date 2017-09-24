@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EnigmaComponent } from './enigma.component';
+import {RotorsComponent} from "../rotors/rotors.component";
+import {RotorComponent} from "../rotor/rotor.component";
 
 describe('EnigmaComponent', () => {
   let component: EnigmaComponent;
@@ -8,7 +10,7 @@ describe('EnigmaComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EnigmaComponent ]
+      declarations: [ RotorsComponent, RotorComponent, EnigmaComponent ]
     })
     .compileComponents();
   }));
@@ -21,5 +23,29 @@ describe('EnigmaComponent', () => {
 
   it('should be created', () => {
     expect(component).toBeTruthy();
+  });
+
+  describe('Encryption', () => {
+    it('uses the rotors to encrypt the plaintext', () => {
+      let rotors = new RotorsComponent();
+      rotors.rotors.reset([new RotorComponent()]);
+      component.rotors = rotors;
+
+      component.onEncryption.subscribe((encryptedText) => {
+        expect(encryptedText).toEqual('BCD');
+      });
+
+      component.plaintext = 'ABC';
+    });
+
+    it('returns plain text if no rotors are set', () => {
+      component.rotors = null;
+
+      component.onEncryption.subscribe((encryptedText) => {
+        expect(encryptedText).toEqual('ABC');
+      });
+
+      component.plaintext = 'ABC';
+    });
   });
 });

@@ -1,11 +1,11 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-rotor',
   templateUrl: './rotor.component.html',
   styleUrls: ['./rotor.component.scss']
 })
-export class RotorComponent implements OnInit {
+export class RotorComponent {
 
   constructor() { }
 
@@ -50,8 +50,4 @@ export class RotorComponent implements OnInit {
 
     return encryptedText;
   }
-
-  ngOnInit() {
-  }
-
 }

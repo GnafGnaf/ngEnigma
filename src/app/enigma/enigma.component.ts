@@ -1,27 +1,29 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {RotorComponent} from "../rotor/rotor.component";
+import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
+import {RotorsComponent} from "../rotors/rotors.component";
 
 @Component({
   selector: 'app-enigma',
   templateUrl: './enigma.component.html',
   styleUrls: ['./enigma.component.scss']
 })
-export class EnigmaComponent implements OnInit {
+export class EnigmaComponent {
 
   constructor() { }
 
-  @ViewChild(RotorComponent)
-  rotor: RotorComponent;
+  @ViewChild(RotorsComponent)
+  rotors: RotorsComponent;
 
   @Input()
   set plaintext(plaintext: string) {
-    this.onEncryption.emit(this.rotor.encrypt(plaintext));
+    let encryptedText: string = plaintext;
+
+    if (this.rotors instanceof RotorsComponent) {
+      encryptedText = this.rotors.encrypt(plaintext);
+    }
+
+    this.onEncryption.emit(encryptedText);
   };
 
   @Output('onEncryption')
   onEncryption: EventEmitter<string> = new EventEmitter();
-
-  ngOnInit() {
-  }
-
 }
