@@ -1,4 +1,5 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {SubstitutionCypher} from "../shared/substitutionCypher/substitutionCypher";
 
 @Component({
   selector: 'app-rotor',
@@ -9,7 +10,8 @@ export class RotorComponent {
 
   constructor() { }
 
-  substitutions: Map<string, string> = new Map<string, string>([
+  @Input('substitutionCypher')
+  substitutionCypher: SubstitutionCypher = new SubstitutionCypher(new Map<string, string>([
     ['A', 'B'],
     ['B', 'C'],
     ['C', 'D'],
@@ -36,15 +38,17 @@ export class RotorComponent {
     ['X', 'Y'],
     ['Y', 'Z'],
     ['Z', 'A'],
-  ]);
+  ]));
 
   public encrypt(plainText: string): string {
     let encryptedText: string = '';
 
     for(let char of plainText) {
       char = char.toUpperCase();
-      if (this.substitutions.has(char)) {
-        encryptedText += this.substitutions.get(char);
+      try {
+        encryptedText += this.substitutionCypher.substitute(char);
+      } catch (error) {
+        // we just ignore the input
       }
     }
 
