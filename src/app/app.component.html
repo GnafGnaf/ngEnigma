@@ -11,4 +11,10 @@
   <md-card-content> {{ cypherText }} </md-card-content>
 </md-card>
 
-<app-enigma [plaintext]="plainText" (onEncryption)="cypherText = $event"></app-enigma>
+<app-enigma [plaintext]="plainText" (onEncryption)="cypherText = $event">
+  <app-rotors>
+    <app-rotor></app-rotor>
+    <app-rotor></app-rotor>
+    <app-rotor></app-rotor>
+  </app-rotors>
+</app-enigma>
