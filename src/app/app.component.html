@@ -13,8 +13,8 @@
 
 <app-enigma [plaintext]="plainText" (onEncryption)="cypherText = $event">
   <app-rotors>
-    <app-rotor></app-rotor>
-    <app-rotor></app-rotor>
-    <app-rotor></app-rotor>
+    <app-rotor [substitutionCypher]="substitutionCypherFactory.fromRotorNumber('IC')"></app-rotor>
+    <app-rotor [substitutionCypher]="substitutionCypherFactory.fromRotorNumber('IIC')"></app-rotor>
+    <app-rotor [substitutionCypher]="substitutionCypherFactory.fromRotorNumber('IIIC')"></app-rotor>
   </app-rotors>
 </app-enigma>

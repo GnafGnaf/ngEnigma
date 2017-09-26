@@ -1,4 +1,4 @@
-import {Component, ContentChildren, EventEmitter, Input, Output, ViewChild} from '@angular/core';
+import {Component, ContentChild, EventEmitter, Input, Output} from '@angular/core';
 import {RotorsComponent} from "../rotors/rotors.component";
 
 @Component({
@@ -10,7 +10,7 @@ export class EnigmaComponent {
 
   constructor() { }
 
-  @ContentChildren(RotorsComponent)
+  @ContentChild(RotorsComponent)
   rotors: RotorsComponent;
 
   @Input()

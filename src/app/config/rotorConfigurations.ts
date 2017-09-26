@@ -8,7 +8,7 @@ export class RotorConfiguration {
 
 }
 
-export const ROTOT_CONFIGURATIONS: RotorConfiguration[] = [
+export const ROTOR_CONFIGURATIONS: RotorConfiguration[] = [
     {
       rotorNumber: 'IC',
       yearIntroduced: 1924,
@@ -20,7 +20,7 @@ export const ROTOT_CONFIGURATIONS: RotorConfiguration[] = [
       enigmaModel: 'Commercial Enigma A, B',
       substitution: 'HQZGPJTMOBLNCIFDYAWVEUSRKX'
     },{
-      rotorNumber: 'IIC',
+      rotorNumber: 'IIIC',
       yearIntroduced: 1924,
       enigmaModel: 'Commercial Enigma A, B',
       substitution: 'UQNTLSZFMREHDPXKIBVYGJCWOA'

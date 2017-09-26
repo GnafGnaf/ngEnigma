@@ -9,6 +9,8 @@ import {FormsModule} from "@angular/forms";
 import { EnigmaComponent } from './enigma/enigma.component';
 import { RotorsComponent } from './rotors/rotors.component';
 import { RotorComponent } from './rotor/rotor.component';
+import {SubstitutionCypherFactory} from "./shared/substitutionCypher/substitutionCypherFactory";
+import {ROTOR_CONFIGURATIONS} from "./config/rotorConfigurations";
 
 @NgModule({
   declarations: [
@@ -24,7 +26,10 @@ import { RotorComponent } from './rotor/rotor.component';
     FlexLayoutModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    SubstitutionCypherFactory,
+    {provide: 'ROTOR_CONFIGURATIONS', useValue: ROTOR_CONFIGURATIONS}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

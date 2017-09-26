@@ -6,6 +6,8 @@ import {FormsModule} from "@angular/forms";
 import {EnigmaComponent} from "./enigma/enigma.component";
 import {RotorsComponent} from "./rotors/rotors.component";
 import {RotorComponent} from "./rotor/rotor.component";
+import {SubstitutionCypherFactory} from "./shared/substitutionCypher/substitutionCypherFactory";
+import {ROTOR_CONFIGURATIONS} from "./config/rotorConfigurations";
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -20,6 +22,10 @@ describe('AppComponent', () => {
         RotorComponent,
         AppComponent
       ],
+      providers: [
+        SubstitutionCypherFactory,
+        {provide: 'ROTOR_CONFIGURATIONS', useValue: ROTOR_CONFIGURATIONS}
+      ]
     }).compileComponents();
   }));
 

@@ -1,13 +1,15 @@
-import {RotorConfiguration} from "../../config/rotorConfigurations";
+import {ROTOR_CONFIGURATIONS, RotorConfiguration} from "../../config/rotorConfigurations";
 import {SubstitutionCypher} from "./substitutionCypher";
 import {InvalidArgumentError} from "../errors/invalidArgumentError";
+import {Inject, Injectable} from "@angular/core";
 
 const ALPHABET : string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
+@Injectable()
 export class SubstitutionCypherFactory {
   configuration: Map<string, RotorConfiguration> = new Map<string, RotorConfiguration>();
 
-  constructor(configuration: RotorConfiguration[]) {
+  constructor(@Inject('ROTOR_CONFIGURATIONS') configuration: RotorConfiguration[]) {
     for (let rotorConfiguration of configuration) {
       if (rotorConfiguration.substitution.length !== ALPHABET.length){
         throw new InvalidArgumentError('Invalid rotorConfiguration: ' + rotorConfiguration.rotorNumber);

@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RotorsComponent } from './rotors.component';
-import {RotorComponent} from "../rotor/rotor.component";
+import {TestRotor} from "../testHelpers/testDoubles/testRotor";
 
 describe('RotorsComponent', () => {
   let component: RotorsComponent;
@@ -26,7 +26,7 @@ describe('RotorsComponent', () => {
 
   describe('Encryption', () => {
     it('chains the encryption of its rotors', () => {
-      component.rotors.reset([new RotorComponent(), new RotorComponent()]);
+      component.rotors.reset([new TestRotor(), new TestRotor()]);
       expect(component.encrypt('ABC')).toEqual('CDE');
     });
   });

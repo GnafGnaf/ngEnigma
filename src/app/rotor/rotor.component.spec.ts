@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RotorComponent } from './rotor.component';
+import {TestSubstitutionCypher} from "../testHelpers/testDoubles/testSubstitutionCypher";
 
 describe('RotorComponent', () => {
   let component: RotorComponent;
@@ -16,6 +17,7 @@ describe('RotorComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(RotorComponent);
     component = fixture.componentInstance;
+    component.substitutionCypher = new TestSubstitutionCypher();
     fixture.detectChanges();
   });
 
