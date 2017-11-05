@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {SubstitutionCypher} from "../shared/substitutionCypher/substitutionCypher";
+import {SimpleSubstitution} from "../../enigma/substitution/simpleSubstitution";
 
 @Component({
   selector: 'app-rotor',
@@ -11,7 +11,7 @@ export class RotorComponent {
   constructor() { }
 
   @Input('substitutionCypher')
-  substitutionCypher: SubstitutionCypher;
+  substitutionCypher: SimpleSubstitution;
 
   public encrypt(plainText: string): string {
     let encryptedText: string = '';
@@ -19,7 +19,7 @@ export class RotorComponent {
     for(let char of plainText) {
       char = char.toUpperCase();
       try {
-        encryptedText += this.substitutionCypher.substitute(char);
+        encryptedText += this.substitutionCypher.encode(char);
       } catch (error) {
         // we just ignore the input
       }

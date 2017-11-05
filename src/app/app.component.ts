@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {SubstitutionCypherFactory} from "./shared/substitutionCypher/substitutionCypherFactory";
+import {SubstitutionCypherFactory} from "./shared/factory/substitutionCypherFactory";
 
 @Component({
   selector: 'app-root',

@@ -1,6 +1,6 @@
 import {SubstitutionCypherFactory} from "./substitutionCypherFactory";
 import {RotorConfiguration} from "../../config/rotorConfigurations";
-import {SubstitutionCypher} from "./substitutionCypher";
+import {SimpleSubstitution} from "../../../enigma/substitution/simpleSubstitution";
 import {InvalidArgumentError} from "../errors/invalidArgumentError";
 
 describe('substitutionCypherFactory', () => {
@@ -26,34 +26,7 @@ describe('substitutionCypherFactory', () => {
 
   describe('cypherCreation', () => {
     it('returns a cypher for a enigma rotor number', () => {
-      expect(factory.fromRotorNumber('IX')).toEqual(new SubstitutionCypher(new Map<string, string>([
-        ['A', 'B'],
-        ['B', 'C'],
-        ['C', 'D'],
-        ['D', 'E'],
-        ['E', 'F'],
-        ['F', 'G'],
-        ['G', 'H'],
-        ['H', 'I'],
-        ['I', 'J'],
-        ['J', 'K'],
-        ['K', 'L'],
-        ['L', 'M'],
-        ['M', 'N'],
-        ['N', 'O'],
-        ['O', 'P'],
-        ['P', 'Q'],
-        ['Q', 'R'],
-        ['R', 'S'],
-        ['S', 'T'],
-        ['T', 'U'],
-        ['U', 'V'],
-        ['V', 'W'],
-        ['W', 'X'],
-        ['X', 'Y'],
-        ['Y', 'Z'],
-        ['Z', 'A'],
-      ])));
+      expect(factory.fromRotorNumber('IX')).toEqual(new SimpleSubstitution('BCDEFGHIJKLMNOPQRSTUVWXYZA'));
     });
 
     it('throws error if rotor number is not configured', () => {

@@ -6,7 +6,7 @@ import {FormsModule} from "@angular/forms";
 import {EnigmaComponent} from "./enigma/enigma.component";
 import {RotorsComponent} from "./rotors/rotors.component";
 import {RotorComponent} from "./rotor/rotor.component";
-import {SubstitutionCypherFactory} from "./shared/substitutionCypher/substitutionCypherFactory";
+import {SubstitutionCypherFactory} from "./shared/factory/substitutionCypherFactory";
 import {ROTOR_CONFIGURATIONS} from "./config/rotorConfigurations";
 
 describe('AppComponent', () => {

@@ -1,5 +1,5 @@
 import {ROTOR_CONFIGURATIONS, RotorConfiguration} from "../../config/rotorConfigurations";
-import {SubstitutionCypher} from "./substitutionCypher";
+import {SimpleSubstitution} from "../../../enigma/substitution/simpleSubstitution";
 import {InvalidArgumentError} from "../errors/invalidArgumentError";
 import {Inject, Injectable} from "@angular/core";
 
@@ -18,20 +18,14 @@ export class SubstitutionCypherFactory {
     }
   };
 
-  fromRotorNumber(rotorNumber: string) : SubstitutionCypher {
+  fromRotorNumber(rotorNumber: string) : SimpleSubstitution {
     if (!this.configuration.has(rotorNumber)) {
       throw new InvalidArgumentError(`unknown rotor number: "${rotorNumber}"`)
     }
     return SubstitutionCypherFactory.fromRotorConfiguration(this.configuration.get(rotorNumber));
   }
 
-  private static fromRotorConfiguration(rotorConfiguration: RotorConfiguration) : SubstitutionCypher {
-    let substitution : Map<string, string> = new Map<string, string>();
-
-    for (let i = 0; i < ALPHABET.length; i++) {
-      substitution.set(ALPHABET.charAt(i), rotorConfiguration.substitution.charAt(i));
-    }
-
-    return new SubstitutionCypher(substitution);
+  private static fromRotorConfiguration(rotorConfiguration: RotorConfiguration) : SimpleSubstitution {
+    return new SimpleSubstitution(rotorConfiguration.substitution);
   }
 }
