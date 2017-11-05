@@ -1,7 +1,5 @@
-
 import {SimpleSubstitution} from "./simpleSubstitution";
 import {InvalidArgumentError} from "../../app/shared/errors/invalidArgumentError";
-
 
 describe('substitutionCypher', () => {
   let cypher: SimpleSubstitution;

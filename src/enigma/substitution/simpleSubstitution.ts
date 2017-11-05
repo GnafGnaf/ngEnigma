@@ -1,8 +1,8 @@
 import {InvalidArgumentError} from "../../app/shared/errors/invalidArgumentError";
 import {Cypher} from "./cypher";
+import {ALPHABET} from "../constants";
 
-export class SimpleSubstitution implements Cypher{
-  static readonly ALPHABET: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+export class SimpleSubstitution implements Cypher {
   private readonly substitutionAlphabet: string;
 
   public constructor(substitutionAlphabet: string) {
@@ -13,7 +13,7 @@ export class SimpleSubstitution implements Cypher{
     let cypertext = '';
 
     for (let character of plaintext) {
-      cypertext += SimpleSubstitution.substitute(character, SimpleSubstitution.ALPHABET, this.substitutionAlphabet);
+      cypertext += SimpleSubstitution.substitute(character, ALPHABET, this.substitutionAlphabet);
     }
 
     return cypertext;
@@ -23,7 +23,7 @@ export class SimpleSubstitution implements Cypher{
     let plaintext = '';
 
     for (let character of cypherText) {
-      plaintext += SimpleSubstitution.substitute(character, this.substitutionAlphabet, SimpleSubstitution.ALPHABET);
+      plaintext += SimpleSubstitution.substitute(character, this.substitutionAlphabet, ALPHABET);
     }
 
     return plaintext;
