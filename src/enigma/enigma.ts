@@ -1,20 +1,21 @@
 import {Rotor} from "./rotor/rotor";
 import {ALPHABET} from "./constants";
 import {InvalidArgumentError} from "../app/shared/errors/invalidArgumentError";
+import {Rotors} from "./rotors/rotors";
 
 export class Enigma {
-  constructor(private rotors: Array<Rotor>) {}
+  private rotors: Rotors;
+
+  constructor(rotors: Array<Rotor>) {
+    this.rotors = new Rotors(rotors);
+  }
 
   encode(character: string) : string {
     if (!Enigma.isAlphabeticalCharacter(character)) {
       throw new InvalidArgumentError(character + ' is not a character Enigma can encode');
     }
 
-    for (let rotor of this.rotors) {
-      character = rotor.encode(character.toUpperCase());
-    }
-
-    return character;
+    return this.rotors.encode(character);
   }
 
   private static isAlphabeticalCharacter(character: string) {

@@ -1,29 +1,42 @@
 import {Cypher} from "../substitution/cypher";
 import {SimpleSubstitution} from "../substitution/simpleSubstitution";
+import {OverflowObserver} from "./OverflowObserver";
+import {ALPHABET} from "../constants";
 
-export class Rotor implements Cypher {
-  private stateOfRotatingPart = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+export class Rotor implements Cypher, OverflowObserver{
+  private stateOfRotatingPart = ALPHABET;
   private rotatingPart: SimpleSubstitution;
+  private overflowObservers: Array<OverflowObserver> = [];
 
-  constructor(private cypher: Cypher) {
+  constructor(private encryptingPart: Cypher) {
     this.rotatingPart = new SimpleSubstitution(this.stateOfRotatingPart);
   }
 
   encode(plaintext: string): string {
-    let cypherText = this.cypher.encode(this.rotatingPart.encode(plaintext));
-    this.rotate();
-    return cypherText;
+    return this.encryptingPart.encode(this.rotatingPart.encode(plaintext));
   }
 
-  private rotate() {
+  decode(cypherText: string): string {
+    return this.encryptingPart.decode(this.rotatingPart.decode(cypherText));
+  }
+
+  rotate() {
     const firstLetter = this.stateOfRotatingPart.substring(0,1);
     const rest = this.stateOfRotatingPart.substring(1);
 
     this.stateOfRotatingPart = rest + firstLetter;
     this.rotatingPart = new SimpleSubstitution(this.stateOfRotatingPart);
+
+    if (this.stateOfRotatingPart == ALPHABET) {
+      this.overflowObservers.forEach((observer) => observer.onOverflow());
+    }
   }
 
-  decode(cypherText: string): string {
-    throw new Error("Method not implemented.");
+  informAboutOverflow(observer: OverflowObserver) {
+    this.overflowObservers.push(observer);
+  }
+
+  onOverflow() {
+    this.rotate();
   }
 }

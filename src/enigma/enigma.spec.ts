@@ -21,9 +21,12 @@ describe('Enigma', () => {
     });
 
     it('changes the output for the same input after every encryption', () => {
-      let enigma = new Enigma([new Rotor(new SimpleSubstitution('BCDEFGHIJKLMNOPQURSTUVWXYZ'))]);
-      expect(enigma.encode('A')).toEqual('B');
+      let enigma = new Enigma([
+        new Rotor(new SimpleSubstitution('BCDEFGHIJKLMNOPQURSTUVWXYZ')),
+        new Rotor(new SimpleSubstitution('BCDEFGHIJKLMNOPQURSTUVWXYZ')),
+      ]);
       expect(enigma.encode('A')).toEqual('C');
+      expect(enigma.encode('A')).toEqual('D');
     });
 
     it('returns plain text if no rotors are set', () => {
