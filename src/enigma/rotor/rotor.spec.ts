@@ -1,5 +1,5 @@
 import {Rotor} from "./rotor";
-import {SimpleSubstitution} from "../substitution/simpleSubstitution";
+import {SimpleSubstitution} from "../cyphers/simpleSubstitution";
 import {ALPHABET} from "../constants";
 import {OverflowObserver} from "./OverflowObserver";
 

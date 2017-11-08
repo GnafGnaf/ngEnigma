@@ -1,9 +1,9 @@
-import {Cypher} from "../substitution/cypher";
-import {SimpleSubstitution} from "../substitution/simpleSubstitution";
+import {Cypher} from "../cyphers/cypher";
+import {SimpleSubstitution} from "../cyphers/simpleSubstitution";
 import {OverflowObserver} from "./OverflowObserver";
 import {ALPHABET} from "../constants";
 
-export class Rotor implements Cypher, OverflowObserver{
+export class Rotor implements OverflowObserver{
   private stateOfRotatingPart = ALPHABET;
   private rotatingPart: SimpleSubstitution;
   private overflowObservers: Array<OverflowObserver> = [];

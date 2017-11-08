@@ -1,5 +1,5 @@
 
-import {Cypher} from "../substitution/cypher";
+import {Cypher} from "../cyphers/cypher";
 import {Rotor} from "../rotor/rotor";
 
 export class Rotors implements Cypher{

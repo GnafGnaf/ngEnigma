@@ -2,7 +2,7 @@
 import {Rotor} from "../rotor/rotor";
 import {ALPHABET} from "../constants";
 import {Rotors} from "./rotors";
-import {SimpleSubstitution} from "../substitution/simpleSubstitution";
+import {SimpleSubstitution} from "../cyphers/simpleSubstitution";
 
 describe('Rotors', () => {
   it('daisy chains its rotors', () => {

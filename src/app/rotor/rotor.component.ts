@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {SimpleSubstitution} from "../../enigma/substitution/simpleSubstitution";
+import {SimpleSubstitution} from "../../enigma/cyphers/simpleSubstitution";
 
 @Component({
   selector: 'app-rotor',

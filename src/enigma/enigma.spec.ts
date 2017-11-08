@@ -1,43 +1,37 @@
 import {Enigma} from "./enigma";
-import {Rotor} from "./rotor/rotor";
-import {SimpleSubstitution} from "./substitution/simpleSubstitution";
 import {InvalidArgumentError} from "../app/shared/errors/invalidArgumentError";
+import {ObjectMother} from "../testHelpers/objectMother";
 
 describe('Enigma', () => {
 
   describe('Encryption', () => {
     it('uses the rotor to encode the plaintext', () => {
-      let enigma = new Enigma([new Rotor(new SimpleSubstitution('BCDEFGHIJKLMNOPQURSTUVWXYZ'))]);
-      expect(enigma.encode('A')).toEqual('B');
+      expect(ObjectMother.createSimpleEnigma().encode('A')).toEqual('B');
     });
 
     it('chains multiple rotors', () => {
-      let enigma = new Enigma([
-        new Rotor(new SimpleSubstitution('BCDEFGHIJKLMNOPQURSTUVWXYZ')),
-        new Rotor(new SimpleSubstitution('BCDEFGHIJKLMNOPQURSTUVWXYZ'))
-      ]);
-
-      expect(enigma.encode('A')).toEqual('C');
+      expect(ObjectMother.createEnigmaWithTwoRotors().encode('A')).toEqual('C');
     });
 
     it('changes the output for the same input after every encryption', () => {
-      let enigma = new Enigma([
-        new Rotor(new SimpleSubstitution('BCDEFGHIJKLMNOPQURSTUVWXYZ')),
-        new Rotor(new SimpleSubstitution('BCDEFGHIJKLMNOPQURSTUVWXYZ')),
-      ]);
+      let enigma = ObjectMother.createEnigmaWithTwoRotors();
+
       expect(enigma.encode('A')).toEqual('C');
       expect(enigma.encode('A')).toEqual('D');
     });
 
     it('returns plain text if no rotors are set', () => {
-      let enigma = new Enigma([]);
-      expect(enigma.encode('A')).toEqual('A');
+      expect(new Enigma([]).encode('A')).toEqual('A');
     });
 
     it('only accepts single characters as input', () => {
-      let enigma = new Enigma([new Rotor(new SimpleSubstitution('BCDEFGHIJKLMNOPQURSTUVWXYZ'))]);
-      expect(() => {enigma.encode('1')})
-        .toThrowError(InvalidArgumentError, '1 is not a character Enigma can encode');
-    })
+      expect(() => {ObjectMother.createSimpleEnigma().encode('1')})
+        .toThrowError(InvalidArgumentError, '1 is not a character Enigma can reflect');
+    });
+
+    it('uses the reflector to return the original character if you encrypt the decrypted version', () => {
+      let encodedCharacter = ObjectMother.createEnigmaWithReflector().encode('A');
+      expect(ObjectMother.createEnigmaWithReflector().encode(encodedCharacter)).toEqual('A');
+    });
   });
 });

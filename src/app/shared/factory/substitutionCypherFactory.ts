@@ -1,5 +1,5 @@
 import {ROTOR_CONFIGURATIONS, RotorConfiguration} from "../../config/rotorConfigurations";
-import {SimpleSubstitution} from "../../../enigma/substitution/simpleSubstitution";
+import {SimpleSubstitution} from "../../../enigma/cyphers/simpleSubstitution";
 import {InvalidArgumentError} from "../errors/invalidArgumentError";
 import {Inject, Injectable} from "@angular/core";
 

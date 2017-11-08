@@ -1,4 +1,4 @@
-import {SimpleSubstitution} from "../../../enigma/substitution/simpleSubstitution";
+import {SimpleSubstitution} from "../../../enigma/cyphers/simpleSubstitution";
 
 export class TestSubstitutionCypher extends SimpleSubstitution {
   constructor() {

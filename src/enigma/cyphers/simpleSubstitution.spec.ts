@@ -41,4 +41,11 @@ describe('substitutionCypher', () => {
         .toThrowError(InvalidArgumentError, '2 could not be substituted');
     });
   });
+
+  describe('NullSubstitution', () => {
+    it('does nothing', () => {
+      expect(SimpleSubstitution.nullSubstitution().encode('A')).toEqual('A');
+      expect(SimpleSubstitution.nullSubstitution().decode('A')).toEqual('A');
+    });
+  });
 });

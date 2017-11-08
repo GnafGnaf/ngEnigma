@@ -1,6 +1,6 @@
 import {SubstitutionCypherFactory} from "./substitutionCypherFactory";
 import {RotorConfiguration} from "../../config/rotorConfigurations";
-import {SimpleSubstitution} from "../../../enigma/substitution/simpleSubstitution";
+import {SimpleSubstitution} from "../../../enigma/cyphers/simpleSubstitution";
 import {InvalidArgumentError} from "../errors/invalidArgumentError";
 
 describe('substitutionCypherFactory', () => {

@@ -38,4 +38,8 @@ export class SimpleSubstitution implements Cypher {
 
     return targetAlphabet.charAt(positionInAlphabet);
   }
+
+  static nullSubstitution() {
+    return new this(ALPHABET);
+  }
 }
