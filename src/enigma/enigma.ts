@@ -15,7 +15,9 @@ export class Enigma {
       throw new InvalidArgumentError(character + ' is not a character Enigma can encode');
     }
 
-    return this.rotors.encode(character);
+    let encodedCharacter = this.rotors.encode(character);
+    this.rotors.rotate();
+    return encodedCharacter;
   }
 
   private static isAlphabeticalCharacter(character: string) {

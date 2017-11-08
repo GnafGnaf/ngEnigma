@@ -9,23 +9,29 @@ export class Rotors implements Cypher{
     this.rotors = rotors;
 
     let previousRotor = null;
-    for (let rotor of this.rotors.reverse()) {
-      if (previousRotor instanceof Rotor) {
-        previousRotor.informAboutOverflow(rotor);
+    for (let rotorNr in this.rotors) {
+      let rotor = this.rotors[+rotorNr];
+      let nextRotor = this.rotors[+rotorNr + 1];
+
+      if (nextRotor instanceof Rotor) {
+        rotor.informAboutOverflow(nextRotor);
       }
-      previousRotor = rotor;
     }
   }
 
   encode(plaintext: string): string {
-    let encryptedText = this.rotors.reduce((encryptedText, rotor) => {
+    return this.rotors.reduce((encryptedText, rotor) => {
       return rotor.encode(encryptedText);
     }, plaintext);
-    this.rotors[0] && this.rotors[0].rotate();
-    return encryptedText;
   }
 
   decode(cypherText: string): string {
-    return undefined;
+    return this.rotors.reverse().reduce((plaintext, rotor) => {
+      return rotor.decode(plaintext);
+    }, cypherText);
+  }
+
+  rotate() {
+    this.rotors[0] && this.rotors[0].rotate();
   }
 }
