@@ -18,7 +18,7 @@ export class Enigma {
 
   encode(character: string) : string {
     if (!Enigma.isAlphabeticalCharacter(character)) {
-      throw new InvalidArgumentError(character + ' is not a character Enigma can reflect');
+      throw new InvalidArgumentError(character + ' is not a character Enigma can encode');
     }
 
     let encodedCharacter = this.rotors.encode(character);

@@ -26,7 +26,7 @@ describe('Enigma', () => {
 
     it('only accepts single characters as input', () => {
       expect(() => {ObjectMother.createSimpleEnigma().encode('1')})
-        .toThrowError(InvalidArgumentError, '1 is not a character Enigma can reflect');
+        .toThrowError(InvalidArgumentError, '1 is not a character Enigma can encode');
     });
 
     it('uses the reflector to return the original character if you encrypt the decrypted version', () => {

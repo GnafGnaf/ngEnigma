@@ -2,6 +2,7 @@ import {SimpleSubstitution} from "../enigma/cyphers/simpleSubstitution";
 import {Rotor} from "../enigma/rotor/rotor";
 import {Enigma} from "../enigma/enigma";
 import {Reflector} from "../enigma/reflector/reflector";
+import {PairSubstitution} from "../enigma/cyphers/pairSubstitution";
 
 export class ObjectMother {
   static createSimpleSubstitution() {
@@ -25,7 +26,10 @@ export class ObjectMother {
   };
 
   static createReflector() {
-    return new Reflector(this.createSimpleSubstitution());
+    return new Reflector(this.createPairSubstitution());
   }
 
+  static createPairSubstitution() {
+    return new PairSubstitution('AB', 'CD', 'EF', 'GH', 'IJ', 'KL', 'MN', 'OP', 'QR', 'ST', 'UV', 'WX', 'YZ');
+  }
 }
