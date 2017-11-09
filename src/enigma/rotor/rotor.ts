@@ -7,17 +7,33 @@ export class Rotor implements OverflowObserver{
   private stateOfRotatingPart = ALPHABET;
   private rotatingPart: SimpleSubstitution;
   private overflowObservers: Array<OverflowObserver> = [];
+  private nextRotor: Rotor;
+  private previousRotor: Rotor;
 
   constructor(private encryptingPart: Cypher) {
     this.rotatingPart = new SimpleSubstitution(this.stateOfRotatingPart);
   }
 
   encode(plaintext: string): string {
-    return this.encryptingPart.encode(this.rotatingPart.encode(plaintext));
+    let rotatedText = this.rotatingPart.encode(plaintext);
+    let encryptedText = this.encryptingPart.encode(rotatedText);
+
+    if (this.nextRotor instanceof Rotor) {
+      return this.nextRotor.encode(encryptedText);
+    }
+
+    return encryptedText;
   }
 
   decode(cypherText: string): string {
-    return this.encryptingPart.decode(this.rotatingPart.decode(cypherText));
+    let rotatedText = this.rotatingPart.decode(cypherText);
+    let decryptedText = this.encryptingPart.decode(rotatedText);
+
+    if (this.previousRotor instanceof Rotor) {
+      return this.previousRotor.decode(decryptedText);
+    }
+
+    return decryptedText;
   }
 
   rotate() {
@@ -38,5 +54,14 @@ export class Rotor implements OverflowObserver{
 
   onOverflow() {
     this.rotate();
+  }
+
+  setNextRotor(nextRotor: Rotor) {
+    this.nextRotor = nextRotor;
+    this.informAboutOverflow(nextRotor);
+  }
+
+  setPreviousRotor(previousRotor: Rotor) {
+    this.previousRotor = previousRotor;
   }
 }
