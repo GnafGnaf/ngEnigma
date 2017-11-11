@@ -16,16 +16,24 @@ export class Enigma {
     }
   }
 
-  encode(character: string) : string {
-    if (!Enigma.isAlphabeticalCharacter(character)) {
-      throw new InvalidArgumentError(character + ' is not a character Enigma can encode');
+  encode(inputText: string) : string {
+    let encodedText = '';
+
+    for (let character of inputText) {
+      if (!Enigma.isAlphabeticalCharacter(character)) {
+        throw new InvalidArgumentError(character + ' is not a character Enigma can encode');
+
+      }
+      let encodedCharacter = this.rotors.encode(character);
+
+      encodedCharacter = this.reflector.reflect(encodedCharacter);
+
+      encodedText += encodedCharacter;
+
+      this.rotors.rotate();
     }
 
-    let encodedCharacter = this.rotors.encode(character);
-    encodedCharacter = this.reflector.reflect(encodedCharacter);
-
-    this.rotors.rotate();
-    return encodedCharacter;
+    return encodedText;
   }
 
   private static isAlphabeticalCharacter(character: string) {

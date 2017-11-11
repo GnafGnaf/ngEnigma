@@ -14,11 +14,7 @@ export class EnigmaComponent {
 
   @Input()
   set plaintext(plaintext: string) {
-    let encryptedText = '';
-    for (let character of plaintext.toUpperCase()) {
-      encryptedText += this.enigmaModel.encode(character);
-    }
-    this.onEncryption.emit(encryptedText);
+    this.onEncryption.emit(this.enigmaModel.encode(plaintext.toUpperCase()));
   };
 
   @Output('onEncryption')

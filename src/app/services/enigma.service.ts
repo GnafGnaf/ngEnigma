@@ -12,13 +12,13 @@ export class EnigmaService {
   constructor() { }
 
   get(id: string): Enigma {
-    return new Enigma(
-      [new Rotor(new SimpleSubstitution(ALPHABET))],
-      new Reflector(new PairSubstitution())
-    );
     // return new Enigma(
-    //   [new Rotor(new SimpleSubstitution('BCDEFGHIJKLMNOPQRSTUVWXYZA'))],
-    //   new Reflector(new PairSubstitution('AB', 'CD', 'EF', 'GH', 'IJ', 'KL', 'MN', 'OP', 'QR', 'ST', 'UV', 'WX', 'YZ'))
+    //   [new Rotor(new SimpleSubstitution(ALPHABET))],
+    //   new Reflector(new PairSubstitution())
     // );
+    return new Enigma(
+      [new Rotor('HELOWRDABCFGIJKMNPQSTUVXYZ')],
+      new Reflector(new PairSubstitution('AZ', 'BX', 'CV', 'DT', 'ER', 'FP', 'GN', 'HO', 'IQ', 'JS', 'KU', 'LW', 'MY'))
+    );
   }
 }

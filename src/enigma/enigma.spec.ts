@@ -29,9 +29,12 @@ describe('Enigma', () => {
         .toThrowError(InvalidArgumentError, '1 is not a character Enigma can encode');
     });
 
-    it('uses the reflector to return the original character if you encrypt the decrypted version', () => {
-      let encodedCharacter = ObjectMother.createEnigmaWithReflector().encode('A');
-      expect(ObjectMother.createEnigmaWithReflector().encode(encodedCharacter)).toEqual('A');
+    it(
+      'uses the reflector to return the original character if you encrypt the decrypted version',
+      () =>
+    {
+      let encodedCharacter = ObjectMother.createEnigmaWithReflector().encode('HELLOWORLD');
+      expect(ObjectMother.createEnigmaWithReflector().encode(encodedCharacter)).toEqual('HELLOWORLD');
     });
   });
 });

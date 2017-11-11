@@ -5,12 +5,8 @@ import {Reflector} from "../enigma/reflector/reflector";
 import {PairSubstitution} from "../enigma/cyphers/pairSubstitution";
 
 export class ObjectMother {
-  static createSimpleSubstitution() {
-    return new SimpleSubstitution('BCDEFGHIJKLMNOPQRSTUVWXYZA');
-  }
-
   static createRotor() {
-    return new Rotor(this.createSimpleSubstitution());
+    return new Rotor('BCDEFGHIJKLMNOPQRSTUVWXYZA');
   }
 
   static createSimpleEnigma() {
@@ -30,6 +26,6 @@ export class ObjectMother {
   }
 
   static createPairSubstitution() {
-    return new PairSubstitution('AB', 'CD', 'EF', 'GH', 'IJ', 'KL', 'MN', 'OP', 'QR', 'ST', 'UV', 'WX', 'YZ');
+    return new PairSubstitution('AZ', 'BX', 'CV', 'DT', 'ER', 'FP', 'GN', 'HO', 'IQ', 'JS', 'KU', 'LW', 'MY');
   }
 }

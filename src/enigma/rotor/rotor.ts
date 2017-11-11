@@ -1,22 +1,20 @@
-import {Cypher} from "../cyphers/cypher";
 import {SimpleSubstitution} from "../cyphers/simpleSubstitution";
 import {OverflowObserver} from "./OverflowObserver";
-import {ALPHABET} from "../constants";
 
 export class Rotor implements OverflowObserver{
-  private stateOfRotatingPart = ALPHABET;
-  private rotatingPart: SimpleSubstitution;
   private overflowObservers: Array<OverflowObserver> = [];
   private nextRotor: Rotor;
   private previousRotor: Rotor;
+  private encryptingPart: SimpleSubstitution;
+  private readonly keyAtInput: string;
 
-  constructor(private encryptingPart: Cypher) {
-    this.rotatingPart = new SimpleSubstitution(this.stateOfRotatingPart);
+  constructor(private key: string) {
+    this.keyAtInput = key;
+    this.encryptingPart = new SimpleSubstitution(key);
   }
 
   encode(plaintext: string): string {
-    let rotatedText = this.rotatingPart.encode(plaintext);
-    let encryptedText = this.encryptingPart.encode(rotatedText);
+    let encryptedText = this.encryptingPart.encode(plaintext);
 
     if (this.nextRotor instanceof Rotor) {
       return this.nextRotor.encode(encryptedText);
@@ -26,8 +24,7 @@ export class Rotor implements OverflowObserver{
   }
 
   decode(cypherText: string): string {
-    let rotatedText = this.rotatingPart.decode(cypherText);
-    let decryptedText = this.encryptingPart.decode(rotatedText);
+    let decryptedText = this.encryptingPart.decode(cypherText);
 
     if (this.previousRotor instanceof Rotor) {
       return this.previousRotor.decode(decryptedText);
@@ -37,13 +34,13 @@ export class Rotor implements OverflowObserver{
   }
 
   rotate() {
-    const firstLetter = this.stateOfRotatingPart.substring(0,1);
-    const rest = this.stateOfRotatingPart.substring(1);
+    const firstLetter = this.key.substring(0,1);
+    const rest = this.key.substring(1);
 
-    this.stateOfRotatingPart = rest + firstLetter;
-    this.rotatingPart = new SimpleSubstitution(this.stateOfRotatingPart);
+    this.key = rest + firstLetter;
+    this.encryptingPart = new SimpleSubstitution(this.key);
 
-    if (this.stateOfRotatingPart == ALPHABET) {
+    if (this.key == this.keyAtInput) {
       this.overflowObservers.forEach((observer) => observer.onOverflow());
     }
   }

@@ -10,7 +10,7 @@ describe('Reflector', () => {
     // resulting in the plaintext. So lets spice things up and rotate.
     rotor.rotate();
     reflector.setRotors(new Rotors([rotor]));
-    expect(reflector.reflect('A')).toEqual('Z');
+    expect(reflector.reflect('A')).toEqual('X');
   });
 
   describe('Null Reflector', () => {

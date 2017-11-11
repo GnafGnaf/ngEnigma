@@ -6,7 +6,7 @@ import {OverflowObserver} from "./OverflowObserver";
 describe('Rotor', () => {
   let rotor: Rotor;
   beforeEach(() => {
-    rotor = new Rotor(new SimpleSubstitution('BCDEFGHIJKLMNOPQRSTUVWXYZA'));
+    rotor = new Rotor('BCDEFGHIJKLMNOPQRSTUVWXYZA');
   });
 
   describe('Encryption', () => {
