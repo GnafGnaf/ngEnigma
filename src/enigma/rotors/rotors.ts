@@ -31,7 +31,6 @@ export class Rotors implements Cypher{
   decode(cypherText: string): string {
     let lastRotor = this.rotors[this.rotors.length -1];
     return lastRotor ? lastRotor.decode(cypherText) : cypherText;
-
   }
 
   rotate() {

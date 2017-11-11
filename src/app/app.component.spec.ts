@@ -4,10 +4,7 @@ import { AppComponent } from './app.component';
 import {MdInputModule, MdToolbarModule} from "@angular/material";
 import {FormsModule} from "@angular/forms";
 import {EnigmaComponent} from "./enigma/enigma.component";
-import {RotorsComponent} from "./rotors/rotors.component";
-import {RotorComponent} from "./rotor/rotor.component";
-import {SubstitutionCypherFactory} from "./shared/factory/substitutionCypherFactory";
-import {ROTOR_CONFIGURATIONS} from "./config/rotorConfigurations";
+import {EnigmaService} from "./services/enigma.service";
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -18,13 +15,10 @@ describe('AppComponent', () => {
       ],
       declarations: [
         EnigmaComponent,
-        RotorsComponent,
-        RotorComponent,
         AppComponent
       ],
       providers: [
-        SubstitutionCypherFactory,
-        {provide: 'ROTOR_CONFIGURATIONS', useValue: ROTOR_CONFIGURATIONS}
+        EnigmaService
       ]
     }).compileComponents();
   }));

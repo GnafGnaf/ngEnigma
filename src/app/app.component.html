@@ -2,9 +2,9 @@
 
 <div fxFlex>
   <md-input-container floatPlaceholder="auto">
-  <textarea mdInput
-            [(ngModel)]="plainText"
-            placeholder="plain text"></textarea>
+    <textarea mdInput
+              [(ngModel)]="plainText"
+              placeholder="plain text"></textarea>
   </md-input-container>
 
   <md-card>
@@ -13,10 +13,5 @@
   </md-card>
 </div>
 
-<app-enigma [plaintext]="plainText" (onEncryption)="cypherText = $event">
-  <app-rotors>
-    <app-rotor [substitutionCypher]="substitutionCypherFactory.fromRotorNumber('IC')"></app-rotor>
-    <app-rotor [substitutionCypher]="substitutionCypherFactory.fromRotorNumber('IIC')"></app-rotor>
-    <app-rotor [substitutionCypher]="substitutionCypherFactory.fromRotorNumber('IIIC')"></app-rotor>
-  </app-rotors>
+<app-enigma [enigmaModel]="enigma" [plaintext]="plainText" (onEncryption)="cypherText = $event">
 </app-enigma>

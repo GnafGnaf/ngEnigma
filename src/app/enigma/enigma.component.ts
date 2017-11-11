@@ -1,5 +1,5 @@
-import {Component, ContentChild, EventEmitter, Input, Output} from '@angular/core';
-import {RotorsComponent} from "../rotors/rotors.component";
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Enigma} from "../../enigma/enigma";
 
 @Component({
   selector: 'app-enigma',
@@ -7,20 +7,17 @@ import {RotorsComponent} from "../rotors/rotors.component";
   styleUrls: ['./enigma.component.scss'],
 })
 export class EnigmaComponent {
+  @Input()
+  private enigmaModel: Enigma;
 
   constructor() { }
 
-  @ContentChild(RotorsComponent)
-  rotors: RotorsComponent;
-
   @Input()
   set plaintext(plaintext: string) {
-    let encryptedText: string = plaintext;
-
-    if (this.rotors instanceof RotorsComponent) {
-      encryptedText = this.rotors.encrypt(plaintext);
+    let encryptedText = '';
+    for (let character of plaintext.toUpperCase()) {
+      encryptedText += this.enigmaModel.encode(character);
     }
-
     this.onEncryption.emit(encryptedText);
   };
 

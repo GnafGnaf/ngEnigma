@@ -11,7 +11,7 @@ export class Reflector {
   }
 
   reflect(plaintext: string): string {
-    return this.rotors.decode(this.cypher.encode(plaintext));
+    return this.rotors.decode(this.cypher.substitute(plaintext));
   }
 
   static NullReflector() {

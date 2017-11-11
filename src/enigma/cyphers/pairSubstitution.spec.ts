@@ -7,31 +7,12 @@ describe('PairSubstitution', () => {
     pairSubstitution = new PairSubstitution('XA', 'ZM');
   });
 
-  describe('encoding', () => {
-    it('Substitutes by pairs', () => {
-      expect(pairSubstitution.encode('X')).toEqual('A');
-    });
+  it('substitutes characters', () => {
+    expect(pairSubstitution.substitute('x')).toEqual('A');
+    expect(pairSubstitution.substitute('A')).toEqual('X');
 
-    it('returns plaintext for undefined pairs', () => {
-      expect(pairSubstitution.encode('U')).toEqual('U');
-    });
+    expect(pairSubstitution.substitute('L')).toEqual('L');
 
-    it('substitutes characterwise', () => {
-      expect(pairSubstitution.encode('XU')).toEqual('AU');
-    });
-  });
-
-  describe('decoding', () => {
-    it('Substitutes by pairs', () => {
-      expect(pairSubstitution.decode('A')).toEqual('X');
-    });
-
-    it('returns plaintext for undefined pairs', () => {
-      expect(pairSubstitution.decode('U')).toEqual('U');
-    });
-
-    it('substitutes character wise', () => {
-      expect(pairSubstitution.decode('AU')).toEqual('XU');
-    });
+    expect(pairSubstitution.substitute('XM')).toEqual('AZ');
   });
 });

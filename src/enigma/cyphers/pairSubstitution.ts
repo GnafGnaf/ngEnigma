@@ -1,37 +1,20 @@
-import {Cypher} from "./cypher";
-
-export class PairSubstitution implements Cypher{
+export class PairSubstitution {
   private substitutionPairs: string[];
 
   constructor(... substitutionPairs: string[]) {
     this.substitutionPairs = substitutionPairs;
   }
 
-  encode(plaintext: string): string {
-    let cypherText = "";
+  substitute(inputText: string) {
+    let outputText = '';
 
-    for (let character of plaintext.toUpperCase()) {
+    for (let character of inputText.toUpperCase()) {
       let substitution = this.substitutionPairs.filter((pair) => {
-        return pair.charAt(0) == character
+        return pair.includes(character)
       }, character)[0];
-
-      cypherText += substitution ? substitution.charAt(1) : character;
+      outputText += substitution ? substitution.replace(character, '') : character;
     }
 
-    return cypherText;
-  }
-
-  decode(cypherText: string): string {
-    let plainText = "";
-
-    for (let character of cypherText.toUpperCase()) {
-      let substitution = this.substitutionPairs.filter((pair) => {
-        return pair.charAt(1) == character
-      }, character)[0];
-
-      plainText += substitution ? substitution.charAt(0) : character;
-    }
-
-    return plainText;
+    return outputText;
   }
 }

@@ -7,17 +7,12 @@ import {AppComponent} from './app.component';
 import 'hammerjs';
 import {FormsModule} from "@angular/forms";
 import { EnigmaComponent } from './enigma/enigma.component';
-import { RotorsComponent } from './rotors/rotors.component';
-import { RotorComponent } from './rotor/rotor.component';
-import {SubstitutionCypherFactory} from "./shared/factory/substitutionCypherFactory";
-import {ROTOR_CONFIGURATIONS} from "./config/rotorConfigurations";
+import {EnigmaService} from "./services/enigma.service";
 
 @NgModule({
   declarations: [
     AppComponent,
     EnigmaComponent,
-    RotorsComponent,
-    RotorComponent
   ],
   imports: [
     BrowserModule,
@@ -27,8 +22,7 @@ import {ROTOR_CONFIGURATIONS} from "./config/rotorConfigurations";
     FormsModule
   ],
   providers: [
-    SubstitutionCypherFactory,
-    {provide: 'ROTOR_CONFIGURATIONS', useValue: ROTOR_CONFIGURATIONS}
+    EnigmaService
   ],
   bootstrap: [AppComponent]
 })
