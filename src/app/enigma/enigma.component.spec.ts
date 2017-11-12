@@ -24,7 +24,10 @@ describe('EnigmaComponent', () => {
 
   it('shouldEncrypt', () => {
     let encrypted = '';
-    component.enigmaModel = ObjectMother.createEnigmaWithReflector();
+    component.rotors = [ObjectMother.createRotor()];
+    component.reflector = ObjectMother.createReflector();
+    component.ngOnInit();
+
     component.onEncryption.subscribe((encryptedText) => {
       encrypted = encryptedText;
     });
@@ -34,11 +37,17 @@ describe('EnigmaComponent', () => {
 
     component.plaintext = 'HELLO';
     expect(encrypted).toEqual('PLEBY');
+
+    component.plaintext = 'HELLOWORLD';
+    expect(encrypted).toEqual('PLEBYPVSBW');
   });
 
   it('shouldDecrypt', () => {
     let decrypted = '';
-    component.enigmaModel = ObjectMother.createEnigmaWithReflector();
+    component.rotors = [ObjectMother.createRotor()];
+    component.reflector = ObjectMother.createReflector();
+    component.ngOnInit();
+
     component.onEncryption.subscribe((encryptedText) => {
       decrypted = encryptedText;
     });
@@ -48,5 +57,8 @@ describe('EnigmaComponent', () => {
 
     component.plaintext = 'PLEBY';
     expect(decrypted).toEqual('HELLO');
+
+    component.plaintext = 'PLEBYPVSBW';
+    expect(decrypted).toEqual('HELLOWORLD');
   });
 });

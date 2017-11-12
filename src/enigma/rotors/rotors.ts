@@ -14,11 +14,11 @@ export class Rotors implements Cypher{
       let nextRotor = this.rotors[+rotorNr + 1];
 
       if (nextRotor instanceof Rotor) {
-        rotor.setNextRotor(nextRotor);
+        rotor.nextRotor = nextRotor;
       }
 
       if (previousRotor instanceof Rotor) {
-        rotor.setPreviousRotor(previousRotor);
+        rotor.previousRotor = previousRotor;
       }
     }
   }

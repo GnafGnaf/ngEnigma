@@ -1,19 +1,30 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Enigma} from "../../enigma/enigma";
 import setPrototypeOf = Reflect.setPrototypeOf;
+import {Reflector} from "../../enigma/reflector/reflector";
+import {Rotor} from "../../enigma/rotor/rotor";
 
 @Component({
   selector: 'app-enigma',
   templateUrl: './enigma.component.html',
   styleUrls: ['./enigma.component.scss'],
 })
-export class EnigmaComponent {
-  @Input()
-  enigmaModel: Enigma;
+export class EnigmaComponent implements OnInit{
+  private enigmaModel: Enigma;
   private plaintextOld: string = '';
   private encodedValue: string = '';
 
-  constructor() { }
+  @Input()
+  rotors: Rotor[] = [];
+  @Input()
+  reflector: Reflector;
+
+  constructor() {
+  }
+
+  ngOnInit(): void {
+    this.enigmaModel = new Enigma(this.rotors, this.reflector);
+  }
 
   @Input()
   set plaintext(plaintext: string) {
@@ -29,12 +40,14 @@ export class EnigmaComponent {
   };
 
   private removeCharacters(plaintext: string) {
+    for (let i = 0; i < this.encodedValue.length - plaintext.length; i++) {
+      this.rotors[0].rotateBackwards();
+    }
     this.encodedValue = this.encodedValue.substring(0, plaintext.length);
   }
 
   private getNewCharacters(plaintext: string) {
-    let newCharacters = plaintext.replace(this.plaintextOld, '');
-    return newCharacters;
+    return plaintext.replace(this.plaintextOld, '');
   }
 
   private charactersWereAdded(plaintext: string) {

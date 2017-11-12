@@ -11,14 +11,14 @@ export class EnigmaService {
 
   constructor() { }
 
-  get(id: string): Enigma {
+  get(id: string) {
     // return new Enigma(
     //   [new Rotor(new SimpleSubstitution(ALPHABET))],
     //   new Reflector(new PairSubstitution())
     // );
-    return new Enigma(
-      [new Rotor('HELOWRDABCFGIJKMNPQSTUVXYZ')],
-      new Reflector(new PairSubstitution('AZ', 'BX', 'CV', 'DT', 'ER', 'FP', 'GN', 'HO', 'IQ', 'JS', 'KU', 'LW', 'MY'))
-    );
+    return {
+      rotors: [new Rotor('HELOWRDABCFGIJKMNPQSTUVXYZ')],
+      reflector: new Reflector(new PairSubstitution('AZ', 'BX', 'CV', 'DT', 'ER', 'FP', 'GN', 'HO', 'IQ', 'JS', 'KU', 'LW', 'MY'))
+    };
   }
 }

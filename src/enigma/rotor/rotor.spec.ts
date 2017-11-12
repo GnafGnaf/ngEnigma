@@ -34,19 +34,44 @@ describe('Rotor', () => {
   });
 
   it('informs about overflows', () => {
-    let observer = <OverflowObserver>{onOverflow: function(){}};
-    spyOn(observer, 'onOverflow');
+    let nextRotor = <Rotor>{rotate: function(){}};
+    spyOn(nextRotor, 'rotate');
+    rotor.nextRotor = nextRotor;
 
-    rotor.informAboutOverflow(observer);
     for (let character of ALPHABET) {
-      expect(observer.onOverflow).not.toHaveBeenCalled();
+      expect(nextRotor.rotate).not.toHaveBeenCalled();
       rotor.rotate();
     }
-    expect(observer.onOverflow).toHaveBeenCalled();
+    expect(nextRotor.rotate).toHaveBeenCalled();
   });
 
-  it('rotates if it is informed about an overflow by an observed object', () => {
-    rotor.onOverflow();
-    expect(rotor.encode('A')).toEqual('C')
+  it('informs about underflows', () => {
+    let nextRotor = <Rotor>{rotateBackwards: function(){}};
+    spyOn(nextRotor, 'rotateBackwards');
+    rotor.nextRotor = nextRotor;
+
+    rotor.rotate();
+    rotor.rotateBackwards();
+    expect(nextRotor.rotateBackwards).not.toHaveBeenCalled();
+    rotor.rotateBackwards();
+    expect(nextRotor.rotateBackwards).toHaveBeenCalled();
+  });
+
+  it('test over and underflow', () => {
+    let nextRotor = <Rotor>{rotateBackwards: function(){}, rotate: function (){}};
+    spyOn(nextRotor, 'rotateBackwards');
+    spyOn(nextRotor, 'rotate');
+    rotor.nextRotor = nextRotor;
+
+    expect(nextRotor.rotate).not.toHaveBeenCalled();
+    expect(nextRotor.rotateBackwards).not.toHaveBeenCalled();
+
+    rotor.rotateBackwards();
+    expect(nextRotor.rotate).not.toHaveBeenCalled();
+    expect(nextRotor.rotateBackwards).toHaveBeenCalled();
+
+    rotor.rotate();
+    expect(nextRotor.rotate).toHaveBeenCalled();
+    expect(nextRotor.rotateBackwards).toHaveBeenCalled();
   });
 });

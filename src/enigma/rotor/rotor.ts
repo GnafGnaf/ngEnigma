@@ -1,10 +1,10 @@
 import {SimpleSubstitution} from "../cyphers/simpleSubstitution";
 import {OverflowObserver} from "./OverflowObserver";
 
-export class Rotor implements OverflowObserver{
+export class Rotor {
   private overflowObservers: Array<OverflowObserver> = [];
-  private nextRotor: Rotor;
-  private previousRotor: Rotor;
+  nextRotor: Rotor;
+  previousRotor: Rotor;
   private encryptingPart: SimpleSubstitution;
   private readonly keyAtInput: string;
 
@@ -41,24 +41,19 @@ export class Rotor implements OverflowObserver{
     this.encryptingPart = new SimpleSubstitution(this.key);
 
     if (this.key == this.keyAtInput) {
-      this.overflowObservers.forEach((observer) => observer.onOverflow());
+      this.nextRotor.rotate();
     }
   }
 
-  informAboutOverflow(observer: OverflowObserver) {
-    this.overflowObservers.push(observer);
-  }
+  rotateBackwards() {
+    if (this.key == this.keyAtInput) {
+      this.nextRotor.rotateBackwards();
+    }
 
-  onOverflow() {
-    this.rotate();
-  }
+    const lastLetter = this.key.substring(this.key.length - 1);
+    const rest = this.key.substring(0, this.key.length -1);
 
-  setNextRotor(nextRotor: Rotor) {
-    this.nextRotor = nextRotor;
-    this.informAboutOverflow(nextRotor);
-  }
-
-  setPreviousRotor(previousRotor: Rotor) {
-    this.previousRotor = previousRotor;
+    this.key = lastLetter + rest;
+    this.encryptingPart = new SimpleSubstitution(this.key);
   }
 }
