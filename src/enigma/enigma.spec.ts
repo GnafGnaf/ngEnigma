@@ -33,8 +33,8 @@ describe('Enigma', () => {
       'uses the reflector to return the original character if you encrypt the decrypted version',
       () =>
     {
-      let encodedCharacter = ObjectMother.createEnigmaWithReflector().encode('HELLOWORLD');
-      expect(ObjectMother.createEnigmaWithReflector().encode(encodedCharacter)).toEqual('HELLOWORLD');
+      let encodedCharacter = ObjectMother.createEnigmaWithReflector().encode('H');
+      expect(ObjectMother.createEnigmaWithReflector().encode(encodedCharacter)).toEqual('H');
     });
   });
 });

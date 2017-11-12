@@ -13,5 +13,5 @@
   </md-card>
 </div>
 
-<app-enigma [enigmaModel]="enigma" [plaintext]="plainText" (onEncryption)="cypherText = $event">
+<app-enigma [enigmaModel]="enigma" [plaintext]="plainText" (onEncryption)="addEncryptedChar($event)">
 </app-enigma>

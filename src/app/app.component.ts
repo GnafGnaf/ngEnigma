@@ -8,13 +8,17 @@ import {Enigma} from "../enigma/enigma";
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit{
-  plainText: String = '';
-  cypherText: String = '';
+  plainText: string = '';
+  cypherText: string = '';
   enigma: Enigma;
 
   constructor(public enigmaService: EnigmaService) {}
 
   ngOnInit(): void {
     this.enigma = this.enigmaService.get('EnigmaI');
+  }
+
+  addEncryptedChar($event: string) {
+    this.cypherText = $event;
   }
 }
