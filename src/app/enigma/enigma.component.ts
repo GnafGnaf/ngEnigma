@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Enigma} from "../../enigma/enigma";
-import setPrototypeOf = Reflect.setPrototypeOf;
 import {Reflector} from "../../enigma/reflector/reflector";
 import {Rotor} from "../../enigma/rotor/rotor";
 
@@ -46,11 +45,11 @@ export class EnigmaComponent implements OnInit{
     this.encodedValue = this.encodedValue.substring(0, plaintext.length);
   }
 
-  private getNewCharacters(plaintext: string) {
+  private getNewCharacters(plaintext: string): string {
     return plaintext.replace(this.plaintextOld, '');
   }
 
-  private charactersWereAdded(plaintext: string) {
+  private charactersWereAdded(plaintext: string): boolean {
     return plaintext.length > this.plaintextOld.length;
   }
 

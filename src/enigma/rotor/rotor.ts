@@ -1,20 +1,23 @@
 import {SimpleSubstitution} from "../cyphers/simpleSubstitution";
-import {OverflowObserver} from "./OverflowObserver";
+import {ALPHABET} from "../constants";
+import {RotorStateObserver} from "../../app/rotor/rotorStateObserver";
 
 export class Rotor {
-  private overflowObservers: Array<OverflowObserver> = [];
   nextRotor: Rotor;
   previousRotor: Rotor;
   private encryptingPart: SimpleSubstitution;
-  private readonly keyAtInput: string;
+  private rotatingPart: SimpleSubstitution;
+  private stateOfRotatingPart: string = ALPHABET;
+  private stateChangeObservers: Array<RotorStateObserver> = [];
 
   constructor(private key: string) {
-    this.keyAtInput = key;
+    this.rotatingPart = new SimpleSubstitution(this.stateOfRotatingPart);
     this.encryptingPart = new SimpleSubstitution(key);
   }
 
   encode(plaintext: string): string {
-    let encryptedText = this.encryptingPart.encode(plaintext);
+    let rotatedText = this.rotatingPart.encode(plaintext);
+    let encryptedText = this.encryptingPart.encode(rotatedText);
 
     if (this.nextRotor instanceof Rotor) {
       return this.nextRotor.encode(encryptedText);
@@ -24,7 +27,8 @@ export class Rotor {
   }
 
   decode(cypherText: string): string {
-    let decryptedText = this.encryptingPart.decode(cypherText);
+    let rotatedText = this.rotatingPart.decode(cypherText);
+    let decryptedText = this.encryptingPart.decode(rotatedText);
 
     if (this.previousRotor instanceof Rotor) {
       return this.previousRotor.decode(decryptedText);
@@ -34,26 +38,53 @@ export class Rotor {
   }
 
   rotate() {
-    const firstLetter = this.key.substring(0,1);
-    const rest = this.key.substring(1);
+    this.shiftStateOfRotatingPart();
+    this.rotatingPart = new SimpleSubstitution(this.stateOfRotatingPart);
 
-    this.key = rest + firstLetter;
-    this.encryptingPart = new SimpleSubstitution(this.key);
-
-    if (this.key == this.keyAtInput) {
+    if (this.stateOfRotatingPart == ALPHABET) {
       this.nextRotor.rotate();
     }
+
+    this.notifyStateChangeObservers();
+  }
+
+  private shiftStateOfRotatingPart() {
+    const firstLetter = this.stateOfRotatingPart.substring(0, 1);
+    const rest = this.stateOfRotatingPart.substring(1);
+
+    this.stateOfRotatingPart = rest + firstLetter;
   }
 
   rotateBackwards() {
-    if (this.key == this.keyAtInput) {
+    if (this.stateOfRotatingPart == ALPHABET) {
       this.nextRotor.rotateBackwards();
     }
+    this.unshiftStateOfRotatingPart();
+    this.rotatingPart = new SimpleSubstitution(this.stateOfRotatingPart);
 
-    const lastLetter = this.key.substring(this.key.length - 1);
-    const rest = this.key.substring(0, this.key.length -1);
+    this.notifyStateChangeObservers();
+  }
 
-    this.key = lastLetter + rest;
-    this.encryptingPart = new SimpleSubstitution(this.key);
+  private unshiftStateOfRotatingPart() {
+    const lastLetter = this.stateOfRotatingPart.substring(this.key.length - 1);
+    const rest = this.stateOfRotatingPart.substring(0, this.key.length - 1);
+
+    this.stateOfRotatingPart = lastLetter + rest;
+  }
+
+  registerStateChangeObserver(observer: RotorStateObserver) {
+    this.stateChangeObservers.push(observer);
+    observer.onRotorStateChange(this.getRotorState());
+  }
+
+  private notifyStateChangeObservers()
+  {
+    for(let observer of this.stateChangeObservers) {
+      observer.onRotorStateChange(this.getRotorState())
+    }
+  }
+
+  private getRotorState() {
+    return this.stateOfRotatingPart.substring(0, 1);
   }
 }

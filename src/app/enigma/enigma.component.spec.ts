@@ -2,13 +2,14 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EnigmaComponent } from './enigma.component';
 import {ObjectMother} from "../../testHelpers/objectMother";
+import {RotorComponent} from "../rotor/rotor.component";
 
 describe('EnigmaComponent', () => {
   let component: EnigmaComponent;
   let fixture: ComponentFixture<EnigmaComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({declarations: [EnigmaComponent]})
+    TestBed.configureTestingModule({declarations: [RotorComponent, EnigmaComponent]})
       .compileComponents();
   }));
 

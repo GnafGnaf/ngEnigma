@@ -8,11 +8,13 @@ import 'hammerjs';
 import {FormsModule} from "@angular/forms";
 import { EnigmaComponent } from './enigma/enigma.component';
 import {EnigmaService} from "./services/enigma.service";
+import { RotorComponent } from './rotor/rotor.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EnigmaComponent,
+    RotorComponent,
   ],
   imports: [
     BrowserModule,

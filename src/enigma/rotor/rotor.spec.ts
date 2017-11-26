@@ -2,6 +2,8 @@ import {Rotor} from "./rotor";
 import {SimpleSubstitution} from "../cyphers/simpleSubstitution";
 import {ALPHABET} from "../constants";
 import {OverflowObserver} from "./OverflowObserver";
+import {PresentableRotor} from "./presentableRotor";
+import {RotorStateObserver} from "../../app/rotor/rotorStateObserver";
 
 describe('Rotor', () => {
   let rotor: Rotor;
@@ -73,5 +75,17 @@ describe('Rotor', () => {
     rotor.rotate();
     expect(nextRotor.rotate).toHaveBeenCalled();
     expect(nextRotor.rotateBackwards).toHaveBeenCalled();
+  });
+
+  it('notifies Observers about rotation', () => {
+    let observer: RotorStateObserver = {
+      onRotorStateChange: function (newState) {}
+    };
+    spyOn(observer, 'onRotorStateChange');
+
+    rotor.registerStateChangeObserver(observer);
+    rotor.rotate();
+
+    expect(observer.onRotorStateChange).toHaveBeenCalledWith('B');
   });
 });

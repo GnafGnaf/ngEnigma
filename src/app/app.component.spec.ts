@@ -5,6 +5,7 @@ import {MdInputModule, MdToolbarModule} from "@angular/material";
 import {FormsModule} from "@angular/forms";
 import {EnigmaComponent} from "./enigma/enigma.component";
 import {EnigmaService} from "./services/enigma.service";
+import {RotorComponent} from "./rotor/rotor.component";
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -15,6 +16,7 @@ describe('AppComponent', () => {
       ],
       declarations: [
         EnigmaComponent,
+        RotorComponent,
         AppComponent
       ],
       providers: [
